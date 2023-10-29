@@ -1,7 +1,8 @@
 from bs4 import BeautifulSoup as BS
 import requests
 
-for page in range(1,20):
+
+for page in range(1,10):
     url = ("https://vandrouki.by/page/"+str(page)+"/")
 
     def get_data(url):
@@ -17,7 +18,8 @@ for page in range(1,20):
 
         for name in article_names:
             info = (f"{name.a['title']}\n")
-            with open(file = "article_names.txt", mode="a") as article_names:
+            with open(file = "article_names_from_vandrouki.txt", mode="a") as article_names:
                 article_names.write(info)
 
     parser()
+
