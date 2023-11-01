@@ -10,18 +10,20 @@ def _get_data(url):
     raise ValueError(f"Error: {res.status_code}")
 
 def parser():
-    selector = "body"
-    main_box = soup.find(selector)
-    table = main_box.find("div", attrs={"class": "releaseGrid grid"})
-    items = table.select("div>div")
-    for item in items:
-        info = {
-            "artist": item.findAll("p",attrs={"class": "artist"}),
-            "track": item.findAll("p", attrs={"class": "tracks"}),
-            "label": item.findAll("p", attrs={"class": "label"}),
-            "price": item.findAll("div", attrs={"class": "price"})
-        }
-        print(info)
+    vinil_info = soup.find_all(attrs = {"class":{"artist", "tracks", "label", "price"}})
+    artist_vinil_info = soup.find_all(attrs={"class": {"artist"}})
+    track_vinil_info = soup.find_all( attrs={"class": {"tracks"}})
+    label_vilil_info = soup.find_all(attrs={"class": {"label"}})
+    price_vinil_info = soup.find_all(attrs={"class": {"price"}})
+    v_info = []
+    for a in range (len(artist_vinil_info)):
+        v_info = ({
+            "artist": artist_vinil_info[a].text,
+            "track": track_vinil_info[a].text,
+            "label": label_vilil_info[a].text,
+            "price": price_vinil_info[a].text
+        })
+        print(v_info)
 
 
 

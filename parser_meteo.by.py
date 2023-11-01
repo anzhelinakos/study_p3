@@ -1,18 +1,15 @@
 from bs4 import BeautifulSoup as BS
 import requests
-
+from base_parser import BaseParser
 url = ("https://meteo.by/minsk/")
 
+class Meteo(BaseParser):
+    def abstr(self, url):
+        print(url+url)
 
-def get_data(url):
-    res = requests.get(url)
-    if res.status_code == 200:
-        return res.text
-    raise ValueError(f"Error: {res.status_code}")
 
 def parser():
-    data = get_data(url)
-    soup = BS(data,features="html.parser")
+
     days = ['day0', 'day1', 'day2','day3', 'day4', 'day5', 'day6', 'day7', 'day8', 'day9']
     weather_date = soup.find_all('p', class_= "date")
     weather_date_info = dict(zip(days,[w.text for w in weather_date]))
@@ -43,4 +40,7 @@ def parser():
 
 
 if __name__ == '__main__':
+    Meteo()
+    data = requests.get(url).text
+    soup = BS(data,features="html.parser")
     parser()
